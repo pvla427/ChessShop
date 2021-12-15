@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import Chessboard, Image
+from .models import Chessboard
 
-admin.site.register([Chessboard, Image])
+admin.site.register(Chessboard)
 
 # Register your models here.

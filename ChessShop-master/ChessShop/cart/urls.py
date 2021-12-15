@@ -6,14 +6,13 @@ from . import views
 
 router = routers.DefaultRouter()
 router.register('orders', views.OrderViewSet, basename='order')
-router.register('orderItems', views.OrderItemViewSet, basename='orderItem')
+#router.register('orderItems', views.OrderItemViewSet, basename='orderItem')
 router.register('deliveryMethods', views.DeliveryMethodSerializer)
-router.register('deliveryData', views.DeliveryDataSerializer)
 
 urlpatterns = [
     #path('api/products/', include('products.urls')),
     path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    #path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
     #path('api/users/', include('users.urls')),
     #path('api/main', include('main.urls')),
 ]
