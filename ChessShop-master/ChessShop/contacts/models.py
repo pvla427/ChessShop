@@ -9,4 +9,5 @@ class ContactEntry(models.Model):
     phoneNumber = models.CharField(max_length=20)
     address = models.CharField(max_length=500)
 
+
 # Create your models here.

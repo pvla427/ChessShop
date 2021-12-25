@@ -51,7 +51,7 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     def get_queryset(self):
         return (User.objects.all() if (self.action == 'create') and not self.request.user.is_authenticated 
-        else User.objects.filter(id = request.user.id))
+        else User.objects.filter(id = self.request.user.id))
 
 class PublicUserDataViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = serializers.PublicUserSerializer
