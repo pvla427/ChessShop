@@ -1,10 +1,10 @@
 from django.db.models import query
 from django.db.models.query import QuerySet
 from django.shortcuts import render
-from rest_framework.decorators import permission_classes
+from rest_framework.decorators import action, permission_classes
 from . import models
 from django.shortcuts import render
-from rest_framework import viewsets, permissions
+from rest_framework import request, viewsets, permissions
 from django.contrib.auth.models import User
 from rest_framework.serializers import Serializer
 from . import serializers
@@ -49,6 +49,9 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.UserSerializer
     permission_classes = [CreateUser|IsAccountOwnerOrAdmin]
     queryset = User.objects.all()
+    def get_queryset(self):
+        return (User.objects.all() if (self.action == 'create') and not self.request.user.is_authenticated 
+        else User.objects.filter(id = request.user.id))
 
 class PublicUserDataViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = serializers.PublicUserSerializer
