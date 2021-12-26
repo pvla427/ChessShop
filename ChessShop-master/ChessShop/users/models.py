@@ -15,15 +15,15 @@ class UserAccount(models.Model):
         FEMALE = 2, _('Female')
         UNKNOWN = 3, _('Not specified')
     user = OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='account')
-    status = models.CharField(max_length=200, null=True)
-    firstName = models.CharField(max_length=100, null=True)
-    lastName = models.CharField(max_length=100, null=True)
-    patronymic = models.CharField(max_length=100, null=True)
-    city = models.CharField(max_length=100, null=True)
-    experience = models.CharField(max_length=100, null=True)
+    status = models.CharField(max_length=200, null=True, blank=True)
+    firstName = models.CharField(max_length=100, null=True, blank=True)
+    lastName = models.CharField(max_length=100, null=True, blank=True)
+    patronymic = models.CharField(max_length=100, null=True, blank=True)
+    city = models.CharField(max_length=100, null=True, blank=True)
+    experience = models.CharField(max_length=100, null=True, blank=True)
     gender = models.SmallIntegerField(choices=Gender.choices, default=Gender.UNKNOWN)
     profilePicture = models.ImageField(default='default_profile_picture.jpg', upload_to=get_profile_picture_upload_path)
-    lichessToken = models.CharField(max_length=1024, null=True)
+    lichessToken = models.CharField(max_length=1024, null=True, blank=True)
 
 
 

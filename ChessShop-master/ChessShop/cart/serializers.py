@@ -11,7 +11,7 @@ class DeliveryMethodSerializer(serializers.ModelSerializer):
 class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.OrderItem
-        fields = ['item', 'count']
+        fields = ['item', 'optionName', 'count']
 
 class OrderSerializer(serializers.ModelSerializer):
     orderItems = OrderItemSerializer(many=True)
@@ -26,15 +26,15 @@ class OrderSerializer(serializers.ModelSerializer):
         for orderItemData in orderItemsData:
             models.OrderItem.objects.create(order=order, **orderItemData)
         return order
-    def update(self, instance, validated_data):
-        instance = super().update(instance, validated_data)
-        if 'orderItems' not in validated_data:
-            return instance
-        orderItemsData = validated_data['orderItems']
-        for orderItemData in orderItemsData:
-            orderItem, created = instance.orderItems.get_or_create(
-                item=orderItemData['item'], 
-                defaults={'item': orderItemData['item'], 'order': instance})
-            orderItem.count = orderItemData['count']
-            orderItem.save()
-        return instance
+    # def update(self, instance, validated_data):
+    #     instance = super().update(instance, validated_data)
+    #     if 'orderItems' not in validated_data:
+    #         return instance
+    #     orderItemsData = validated_data['orderItems']
+    #     for orderItemData in orderItemsData:
+    #         orderItem, created = instance.orderItems.get_or_create(
+    #             item=orderItemData['item'], 
+    #             defaults={'item': orderItemData['item'], 'order': instance})
+    #         orderItem.count = orderItemData['count']
+    #         orderItem.save()
+    #     return instance

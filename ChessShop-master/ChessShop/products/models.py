@@ -1,10 +1,11 @@
 from django.db import models
+from django.db.models.deletion import CASCADE
 from django.db.models.fields.related import ForeignKey
 from django.utils.timezone import now
 
-def get_chessboard_image_upload_path(chessboard, filename):
+def get_chessboard_image_upload_path(chessboardOption, filename):
     current_date_time = now()
-    return f'chessboard{chessboard.id}/{current_date_time.year}{current_date_time.month}{current_date_time.day}{current_date_time.hour}{current_date_time.minute}{current_date_time.second}{current_date_time.microsecond}/{filename}'
+    return f'chessboard{chessboardOption.chessboard.id}/{chessboardOption.name}/{current_date_time.year}{current_date_time.month}{current_date_time.day}{current_date_time.hour}{current_date_time.minute}{current_date_time.second}{current_date_time.microsecond}/{filename}'
 
 class Chessboard(models.Model):
     itemName = models.CharField(max_length=1000)
@@ -13,6 +14,13 @@ class Chessboard(models.Model):
     widthCm = models.FloatField()
     heightCm = models.FloatField()
     price = models.IntegerField()
+    weightKg = models.FloatField()
+    powerW = models.FloatField()
+    driveType = models.CharField(max_length=100)
+
+class ChessboardOption(models.Model):
+    chessboard = models.ForeignKey(Chessboard, on_delete=models.CASCADE, related_name='options')
+    name = models.CharField(max_length=100)
     image = models.ImageField(upload_to=get_chessboard_image_upload_path, default='default_board_image.png')
 
 
