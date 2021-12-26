@@ -32,7 +32,7 @@ class OrderSerializer(serializers.ModelSerializer):
             return instance
         orderItemsData = validated_data['orderItems']
         for orderItemData in orderItemsData:
-            orderItem, created = instance.orderItem_set.get_or_create(
+            orderItem, created = instance.orderItems.get_or_create(
                 item=orderItemData['item'], 
                 defaults={'item': orderItemData['item'], 'order': instance})
             orderItem.count = orderItemData['count']

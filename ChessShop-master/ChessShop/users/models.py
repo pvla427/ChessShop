@@ -10,7 +10,7 @@ class UserAccount(models.Model):
         FEMALE = 2, _('Female')
         UNKNOWN = 3, _('Not specified')
     user = OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='account')
-    status = models.CharField(max_length=200)
+    status = models.CharField(max_length=200, default='')
     firstName = models.CharField(max_length=100)
     lastName = models.CharField(max_length=100)
     patronymic = models.CharField(max_length=100)
