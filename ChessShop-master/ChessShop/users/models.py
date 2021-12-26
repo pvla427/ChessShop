@@ -3,6 +3,11 @@ from django.contrib.auth.models import User
 from django.db.models.deletion import SET_NULL
 from django.db.models.fields.related import OneToOneField
 from django.utils.translation import gettext_lazy as _
+from django.utils.timezone import now
+
+def get_profile_picture_upload_path(userAccount, filename):
+    current_date_time = now()
+    return f'user{userAccount.user.id}/{current_date_time.year}{current_date_time.month}{current_date_time.day}{current_date_time.hour}{current_date_time.minute}{current_date_time.second}{current_date_time.microsecond}/{filename}'
 
 class UserAccount(models.Model):
     class Gender(models.IntegerChoices):
@@ -17,7 +22,7 @@ class UserAccount(models.Model):
     city = models.CharField(max_length=100)
     experience = models.CharField(max_length=100)
     gender = models.SmallIntegerField(choices=Gender.choices, default=Gender.UNKNOWN)
-    profilePicture = models.ImageField(default='default_profile_picture.jpg')
+    profilePicture = models.ImageField(default='default_profile_picture.jpg', upload_to=get_profile_picture_upload_path)
     lichessToken = models.CharField(max_length=1024, null=True)
 
 

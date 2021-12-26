@@ -21,6 +21,8 @@ from cart.urls import router as cart_urls
 from products.urls import router as products_urls
 from users.urls import router as users_urls
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from django.conf.urls.static import static
+from django.conf import settings
 
 router = routers.DefaultRouter()
 router.registry.extend(cart_urls.registry)
@@ -39,3 +41,6 @@ urlpatterns = [
     #path('api/users/', include('users.urls')),
     #path('api/main', include('main.urls')),
 ]
+
+if (settings.SERVER_MODE == 'LOCAL'):
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
