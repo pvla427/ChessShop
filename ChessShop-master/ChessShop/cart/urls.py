@@ -7,7 +7,7 @@ from . import views
 router = routers.DefaultRouter()
 router.register('orders', views.OrderViewSet, basename='order')
 #router.register('orderItems', views.OrderItemViewSet, basename='orderItem')
-router.register('deliveryMethods', views.DeliveryMethodSerializer)
+router.register('deliveryMethods', views.DeliveryMethodViewSet, basename='deliveryMethod')
 
 urlpatterns = [
     #path('api/products/', include('products.urls')),

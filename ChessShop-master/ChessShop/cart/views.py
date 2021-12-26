@@ -36,7 +36,7 @@ class OrderViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return models.Order.objects.filter(user=self.request.user)
 
-class DeliveryMethodSerializer(viewsets.ModelViewSet):
+class DeliveryMethodViewSet(viewsets.ModelViewSet):
     queryset = models.DeliveryMethod.objects.all()
     serializer_class = serializers.DeliveryMethodSerializer
-    permissions_classes = [permissions.IsAdminUser|ReadOnly]
+    permission_classes = [permissions.IsAdminUser|ReadOnly]
