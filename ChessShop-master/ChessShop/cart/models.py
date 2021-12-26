@@ -13,10 +13,8 @@ class DeliveryMethod(models.Model):
     description = models.TextField()
     costNote = models.TextField()
     deliveryCost = models.IntegerField()
-    arrivesWithinMin = models.DurationField(null=True)
-    arrivesWithinMax = models.DurationField(null=True)
-    arrivesWithinMinDays = models.IntegerField(default=1)
-    arrivesWithinMaxDays = models.IntegerField(default=5)
+    arrivesWithinMin = models.DurationField()
+    arrivesWithinMax = models.DurationField()
     deliveryType = models.SmallIntegerField(choices=DeliveryType.choices, default=DeliveryType.PICKUP)
 
 class Order(models.Model):
