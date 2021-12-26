@@ -6,7 +6,7 @@ from . import models
 class DeliveryMethodSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.DeliveryMethod
-        fields = ['name', 'description', 'costNote', 'deliveryCost', 'arrivesWithinMin', 'arrivesWithinMax']
+        fields = ['id', 'name', 'description', 'costNote', 'deliveryCost', 'arrivesWithinMin', 'arrivesWithinMax']
 
 class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
