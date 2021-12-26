@@ -9,7 +9,7 @@ class ChessboardOptionSerializer(serializers.ModelSerializer):
         fields = ['name', 'image']
 
 class ChessboardSerializer(serializers.ModelSerializer):
-    options = ChessboardOptionSerializer()
+    options = ChessboardOptionSerializer(many=True)
     class Meta:
         model = models.Chessboard
         fields = ['id', 'itemName', 'description', 'lengthCm', 'widthCm', 'heightCm', 

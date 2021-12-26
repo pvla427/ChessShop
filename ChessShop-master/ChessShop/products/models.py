@@ -14,9 +14,9 @@ class Chessboard(models.Model):
     widthCm = models.FloatField()
     heightCm = models.FloatField()
     price = models.IntegerField()
-    weightKg = models.FloatField()
-    powerW = models.FloatField()
-    driveType = models.CharField(max_length=100)
+    weightKg = models.FloatField(default=1.0)
+    powerW = models.FloatField(default=30.0)
+    driveType = models.CharField(max_length=100, default='шаговый')
 
 class ChessboardOption(models.Model):
     chessboard = models.ForeignKey(Chessboard, on_delete=models.CASCADE, related_name='options')
