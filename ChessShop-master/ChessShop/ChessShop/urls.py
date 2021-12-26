@@ -20,6 +20,7 @@ from rest_framework import routers
 from cart.urls import router as cart_urls
 from products.urls import router as products_urls
 from users.urls import router as users_urls
+from employees.urls import router as employees_urls
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from django.conf.urls.static import static
 from django.conf import settings
@@ -28,6 +29,7 @@ router = routers.DefaultRouter()
 router.registry.extend(cart_urls.registry)
 router.registry.extend(products_urls.registry)
 router.registry.extend(users_urls.registry)
+router.registry.extend(employees_urls.registry)
 
 urlpatterns = [
     path('api/', include(router.urls)),
