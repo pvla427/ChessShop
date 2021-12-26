@@ -13,7 +13,7 @@ class Chessboard(models.Model):
     widthCm = models.FloatField()
     heightCm = models.FloatField()
     price = models.IntegerField()
-    image = models.ImageField(upload_to=get_chessboard_image_upload_path, null=True)
+    image = models.ImageField(upload_to=get_chessboard_image_upload_path, default='default_board_image.png')
 
 
 # Create your models here.
