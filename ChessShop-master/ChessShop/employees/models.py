@@ -1,9 +1,15 @@
 from django.db import models
 from django.utils.timezone import now
+from django.conf import settings
+import os
 
 def get_employee_photo_upload_path(employee, filename):
-    current_date_time = now()
-    return f'user{employee.id}/{current_date_time.year}{current_date_time.month}{current_date_time.day}{current_date_time.hour}{current_date_time.minute}{current_date_time.second}{current_date_time.microsecond}/{filename}'
+    currentDateTime = now()
+    relativePath = f'employees/{currentDateTime.year}{currentDateTime.month}{currentDateTime.day}{currentDateTime.hour}{currentDateTime.minute}{currentDateTime.second}{currentDateTime.microsecond}/{filename}'
+    absolutePath = os.path.join(settings.MEDIA_ROOT, relativePath)
+    if not os.path.exists(absolutePath):
+        os.makedirs(absolutePath)
+    return relativePath
 
 class Employee(models.Model):
     firstName = models.CharField(max_length=100)

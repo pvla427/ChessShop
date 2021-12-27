@@ -4,10 +4,16 @@ from django.db.models.deletion import SET_NULL
 from django.db.models.fields.related import OneToOneField
 from django.utils.translation import gettext_lazy as _
 from django.utils.timezone import now
+from django.conf import settings
+import os
 
 def get_profile_picture_upload_path(userAccount, filename):
-    current_date_time = now()
-    return f'user{userAccount.user.id}/{current_date_time.year}{current_date_time.month}{current_date_time.day}{current_date_time.hour}{current_date_time.minute}{current_date_time.second}{current_date_time.microsecond}/{filename}'
+    currentDateTime = now()
+    relativePath = f'user{userAccount.user.id}/{currentDateTime.year}{currentDateTime.month}{currentDateTime.day}{currentDateTime.hour}{currentDateTime.minute}{currentDateTime.second}{currentDateTime.microsecond}/{filename}'
+    absolutePath = os.path.join(settings.MEDIA_ROOT, relativePath)
+    if not os.path.exists(absolutePath):
+        os.makedirs(absolutePath)
+    return relativePath
 
 class UserAccount(models.Model):
     class Gender(models.IntegerChoices):

@@ -2,10 +2,16 @@ from django.db import models
 from django.db.models.deletion import CASCADE
 from django.db.models.fields.related import ForeignKey
 from django.utils.timezone import now
+from django.conf import settings
+import os
 
 def get_chessboard_image_upload_path(chessboardOption, filename):
-    current_date_time = now()
-    return f'chessboard{chessboardOption.chessboard.id}/{chessboardOption.name}/{current_date_time.year}{current_date_time.month}{current_date_time.day}{current_date_time.hour}{current_date_time.minute}{current_date_time.second}{current_date_time.microsecond}/{filename}'
+    currentDateTime = now()
+    relativePath = f'chessboard{chessboardOption.chessboard.id}/{chessboardOption.name}/{currentDateTime.year}{currentDateTime.month}{currentDateTime.day}{currentDateTime.hour}{currentDateTime.minute}{currentDateTime.second}{currentDateTime.microsecond}/{filename}'
+    absolutePath = os.path.join(settings.MEDIA_ROOT, relativePath)
+    if not os.path.exists(absolutePath):
+        os.makedirs(absolutePath)
+    return relativePath
 
 class Chessboard(models.Model):
     itemName = models.CharField(max_length=1000, default='Доска')
